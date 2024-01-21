@@ -14,7 +14,11 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Column(
-        children: [Text('Chart'), Text('Expenses List')],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Chart'),
+          Text('Expenses List'),
+        ],
       ),
     );
   }
