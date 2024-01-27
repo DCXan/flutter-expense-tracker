@@ -20,6 +20,15 @@ class ExpensesList extends StatelessWidget {
             background: Container(
               color: Theme.of(context).colorScheme.error.withOpacity(.8),
               margin: Theme.of(context).cardTheme.margin,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Icon(Icons.delete),
+                  )
+                ],
+              ),
             ),
             key: ValueKey(expenses[index]),
             onDismissed: (direction) {
