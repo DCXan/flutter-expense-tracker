@@ -8,6 +8,8 @@ class ExpenseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -26,7 +28,15 @@ class ExpenseItem extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Icon(categoryIcons[expense.category]),
+                      child: Icon(
+                        categoryIcons[expense.category],
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.7),
+                      ),
                     ),
                     Text(
                       expense.formattedDate,
