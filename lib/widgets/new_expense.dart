@@ -83,14 +83,14 @@ class _NewExpenseState extends State<NewExpense> {
     return LayoutBuilder(builder: ((context, constraints) {
       final width = constraints.maxWidth;
 
-      return SizedBox(
-        height: double.infinity,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
-            child: Column(
-              children: [
-                if (width >= 600)
+      if (width >= 600) {
+        return SizedBox(
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
+              child: Column(
+                children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -115,14 +115,7 @@ class _NewExpenseState extends State<NewExpense> {
                         ),
                       ),
                     ],
-                  )
-                else
-                  TextField(
-                    controller: _titleController,
-                    maxLength: 50,
-                    decoration: const InputDecoration(label: Text('Title')),
                   ),
-                if (width >= 600)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -166,8 +159,41 @@ class _NewExpenseState extends State<NewExpense> {
                         ],
                       )
                     ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cancel')),
+                      ElevatedButton(
+                          onPressed: _submitExpense,
+                          child: const Text('Save Expense')),
+                    ],
                   )
-                else
+                ],
+              ),
+            ),
+          ),
+        );
+      } else {
+        return SizedBox(
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _titleController,
+                    maxLength: 50,
+                    decoration: const InputDecoration(label: Text('Title')),
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -199,24 +225,9 @@ class _NewExpenseState extends State<NewExpense> {
                       )
                     ],
                   ),
-                const SizedBox(
-                  height: 16,
-                ),
-                if (width >= 600)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Cancel')),
-                      ElevatedButton(
-                          onPressed: _submitExpense,
-                          child: const Text('Save Expense')),
-                    ],
-                  )
-                else
+                  const SizedBox(
+                    height: 16,
+                  ),
                   Row(
                     children: [
                       DropdownButton(
@@ -251,11 +262,12 @@ class _NewExpenseState extends State<NewExpense> {
                           child: const Text('Save Expense')),
                     ],
                   )
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      );
+        );
+      }
     }));
   }
 }
